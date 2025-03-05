@@ -1,24 +1,164 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* strawberry colors 🍓 */
+  --color-strawberry-50: #FFF0F5;
+  --color-strawberry-100: #FFE0EB;
+  --color-strawberry-200: #FFCCE0;
+  --color-strawberry-300: #FFADC9;
+  --color-strawberry-400: #FF8EB2;
+  --color-strawberry-500: #FF6F9C;
+  --color-strawberry-600: #E65C86;
+  --color-strawberry-700: #CC4A71;
+  --color-strawberry-800: #B3375C;
+  --color-strawberry-900: #992447;
+
+  /* cream colors 🍦 */
+  --color-cream-50: #FFFDF5;
+  --color-cream-100: #FFF9E6;
+  --color-cream-200: #FFF3CC;
+  --color-cream-300: #FFEDB3;
+  --color-cream-400: #FFE799;
+  --color-cream-500: #FFE180;
+  --color-cream-600: #E6CB73;
+  --color-cream-700: #CCB566;
+  --color-cream-800: #B39F59;
+  --color-cream-900: #99894D;
+
+  /* mint colors 🌿 */
+  --color-mint-50: #F0FFF5;
+  --color-mint-100: #E0FFEB;
+  --color-mint-200: #CCFFE0;
+  --color-mint-300: #ADFFD1;
+  --color-mint-400: #8EFFC2;
+  --color-mint-500: #6FFCB4;
+  --color-mint-600: #5CE6A0;
+  --color-mint-700: #4ACC8C;
+  --color-mint-800: #37B378;
+  --color-mint-900: #249964;
+
+  /* Shadcn Color Tokens */
+  --color-border: #D1D5DB;
+  --color-input: #E5E7EB;
+  --color-ring: #E5E7EB;
+  --color-background: #FFFFFF;
+  --color-foreground: #111827;
+
+  /* Primary Color Tokens */
+  --color-primary: #111827;
+  --color-primary-foreground: #F9FAFB;
+  --color-secondary: #F9FAFB;
+  --color-secondary-foreground: #111827;
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+  --color-muted: #F9FAFB;
+  --color-muted-foreground: #6B7280;
+  --color-accent: #F9FAFB;
+  --color-accent-foreground: #111827;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #111827;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #111827;
+
+  /* dark version of the color?? */
+
+  /* Radius */
+  --radius: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+
+  /* Fonts */
+  --font-sans: Quicksand, sans-serif;
+  --font-display: Mochiy Pop One, cursive;
+
+  /* Accordion Height */
+  --accordion-content-height: auto;
+
+  /* Container Configuration */
+  --container-center: true;
+  --container-padding: 2rem;
+  --container-screens-2xl: 1400px;
+
+  /* Additional Theme Extensions */
+  --container-max-width-2xl: 1400px;
+
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Animation keyframes */
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--accordion-content-height); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes accordion-up {
+  from { height: var(--accordion-content-height); }
+  to { height: 0; }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+/* Container Styles */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--container-padding);
+  padding-left: var(--container-padding);
+  max-width: 100%;
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: var(--container-screens-2xl);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Dark mode overrides */
+.dark {
+  --color-border: #374151;
+  --color-input: #4B5563;
+  --color-ring: #6B7280;
+  --color-background: #111827;
+  --color-foreground: #F9FAFB;
+
+  --color-primary: #9CA3AF;
+  --color-primary-foreground: #111827;
+  --color-secondary: #374151;
+  --color-secondary-foreground: #F9FAFB;
+  --color-destructive: #E53E3E;
+  --color-destructive-foreground: #FFFFFF;
+  --color-muted: #374151;
+  --color-muted-foreground: #9CA3AF;
+  --color-accent: #4B5563;
+  --color-accent-foreground: #F9FAFB;
+  --color-popover: #1F2937;
+  --color-popover-foreground: #F9FAFB;
+  --color-card: #1F2937;
+  --color-card-foreground: #F9FAFB;
+}
+
+@layer base {
+  * {
+    @apply border-strawberry-200;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  :root {
+    color-scheme: light
+  }
+  .dark {
+    color-scheme: dark
+  }
 }
