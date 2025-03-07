@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { ChevronLeft, LogOutIcon } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
-import StrwbryIcon from "@/components/navbar/StrwbryIcon";
+import StrwbryIcon from "@/components/StrwbryIcon";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";

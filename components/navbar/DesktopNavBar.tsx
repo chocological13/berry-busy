@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
-import StrwbryIcon from "@/components/navbar/StrwbryIcon";
+import StrwbryIcon from "@/components/StrwbryIcon";
 import { useAuthContext } from "@/context/auth-provider";
 import NavBarMenu from "@/components/navbar/NavBarMenu";
 import LogOutButton from "@/components/navbar/LogOutButton";
