@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { supabase } from "@/utils/supabase/client";
 import { toast } from "sonner";
+import { useAuthContext } from "@/context/auth-provider";
 
 export const useAuth = () => {
+  const { setUser } = useAuthContext();
   const [loading, setLoading] = useState<boolean>(false);
   const handleAuth = async (
     authMode: string,
