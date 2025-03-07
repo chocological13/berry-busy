@@ -1,20 +1,20 @@
-import {Home, ListTodo, LucideIcon} from "lucide-react";
+import { Home, ListTodo, LucideIcon } from "lucide-react";
 
 export type IconRoutesType = {
-    label: string;
-    href: string;
-    icon: LucideIcon;
-}
+  label: string;
+  href: string;
+  icon: LucideIcon;
+};
 
 export const menuRoutes: IconRoutesType[] = [
-    {
-        label: "Home",
-        href: "/",
-        icon: Home,
-    },
-    {
-        label: "Tasks",
-        href: "/tasks",
-        icon: ListTodo
-    },
-]
+  {
+    label: "Home",
+    href: "/dashboard",
+    icon: Home,
+  },
+  {
+    label: "Tasks",
+    href: "/tasks",
+    icon: ListTodo,
+  },
+];

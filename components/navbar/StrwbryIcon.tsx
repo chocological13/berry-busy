@@ -14,6 +14,7 @@ const StrwbryIcon = ({className} : {className? : string}) => {
                         width={30}
                         height={30}
                         alt="icon"
+                        priority
                     />
                     <p>
                         Berry Busy
