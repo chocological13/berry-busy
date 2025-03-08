@@ -42,7 +42,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
                 <Input
                   placeholder="Enter your email"
                   type="email"
-                  className="bg-cream-50 dark:bg-strawberry-800/60 border-2 border-strawberry-200 dark:border-strawberry-700 dark:text-strawberry-100 rounded-lg h-12 pl-4 focus-visible:ring-strawberry-400"
+                  className="bg-cream-50 dark:bg-strawberry-800/60 border-2 border-strawberry-200 dark:border-strawberry-700 dark:text-strawberry-100 rounded-lg h-12 pl-4 focus-visible:ring-strawberry-400 dark:focus-visible:ring-mint-800"
                   {...field}
                 />
               </FormControl>
@@ -63,7 +63,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
                 <Input
                   placeholder="Enter your password"
                   type="password"
-                  className="bg-cream-50 dark:bg-strawberry-800/60 border-2 border-strawberry-200 dark:border-strawberry-700 dark:text-strawberry-100 rounded-lg h-12 pl-4 focus-visible:ring-strawberry-400"
+                  className="bg-cream-50 dark:bg-strawberry-800/60 border-2 border-strawberry-200 dark:border-strawberry-700 dark:text-strawberry-100 rounded-lg h-12 pl-4 focus-visible:ring-strawberry-400 dark:focus-visible:ring-mint-800"
                   {...field}
                 />
               </FormControl>
@@ -75,7 +75,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-strawberry-200 dark:bg-strawberry-500 hover:bg-strawberry-600 text-gray-800 dark:text-cream-50 text-md font-bold h-12 rounded-lg shadow-md transition-all"
+            className="w-full bg-strawberry-200 dark:bg-mint-700 hover:bg-strawberry-600 hover:dark:bg-mint-800 text-gray-800 dark:text-cream-50 text-md font-bold h-12 rounded-lg shadow-md transition-all"
           >
             {loading ? (
               <Loader2 className="animate-spin" />

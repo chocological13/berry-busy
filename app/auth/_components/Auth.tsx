@@ -59,7 +59,7 @@ const Auth = () => {
         className="w-full max-w-md relative"
       >
         <Card className="w-full max-w-md bg-white/90 dark:bg-strawberry-900/90 backdrop-blur-sm border-1 border-strawberry-200 dark:border-strawberry-700 shadow-lg rounded-xl overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-strawberry-300 via-pink-400 to-strawberry-300"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-strawberry-300 dark:from-mint-700 via-pink-400 to-strawberry-300 dark:to-mint-700 animate-pulse"></div>
           <CardHeader className="pb-2">
             <CardTitle className="text-center text-2xl text-strawberry-600 dark:text-strawberry-300">
               Welcome to Berry Busy!! 🍓
@@ -79,13 +79,13 @@ const Auth = () => {
               <TabsList className="rounded-full grid w-full grid-cols-2 mb-6 bg-strawberry-100 dark:bg-strawberry-800">
                 <TabsTrigger
                   value="signin"
-                  className="rounded-full data-[state=active]:shadow-md data-[state=active]:bg-cream-50 dark:data-[state=active]:bg-strawberry-700 transition-all"
+                  className="rounded-full data-[state=active]:shadow-md data-[state=active]:bg-cream-50 dark:data-[state=active]:bg-mint-800 transition-all"
                 >
                   I have an account 🤓
                 </TabsTrigger>
                 <TabsTrigger
                   value="signup"
-                  className="rounded-full data-[state=active]:shadow-md data-[state=active]:bg-cream-50 dark:data-[state=active]:bg-strawberry-700 transition-all"
+                  className="rounded-full data-[state=active]:shadow-md data-[state=active]:bg-cream-50 dark:data-[state=active]:bg-mint-800 transition-all"
                 >
                   No account yet 😔
                 </TabsTrigger>
