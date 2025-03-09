@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthForm from "@/app/auth/_components/AuthForm";
-import { formSchema, FormSchemaType } from "@/schemas/authSchema";
+import { authFormSchema, AuthFormSchemaType } from "@/schemas/authSchema";
 import { motion } from "framer-motion";
 import BeegStrwbry from "@/components/BeegStrwbry";
 import { useFloaties } from "@/hooks/useFloaties";
@@ -28,12 +28,12 @@ const Auth = () => {
     setAuthMode(value as "signin" | "signup");
   };
 
-  const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<AuthFormSchemaType>({
+    resolver: zodResolver(authFormSchema),
     defaultValues: { email: "", password: "" },
   });
 
-  const handleSubmit = (values: FormSchemaType) => {
+  const handleSubmit = (values: AuthFormSchemaType) => {
     handleAuth(authMode, values.email, values.password);
     form.reset();
   };

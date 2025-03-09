@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const formSchema = z.object({
+export const authFormSchema = z.object({
   email: z.string().min(1, { message: "Email must be provided" }).email({
     message: "Must be a valid email",
   }),
@@ -9,4 +9,4 @@ export const formSchema = z.object({
   }),
 });
 
-export type FormSchemaType = z.infer<typeof formSchema>;
+export type AuthFormSchemaType = z.infer<typeof authFormSchema>;

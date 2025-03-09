@@ -11,13 +11,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2, Lock, Mail } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
-import { FormSchemaType } from "@/schemas/authSchema";
+import { AuthFormSchemaType } from "@/schemas/authSchema";
 import { motion } from "framer-motion";
 
 interface AuthFormProps {
   loading: boolean;
-  handleSubmit: (values: FormSchemaType) => void;
-  form: UseFormReturn<FormSchemaType>;
+  handleSubmit: (values: AuthFormSchemaType) => void;
+  form: UseFormReturn<AuthFormSchemaType>;
   authMode: "signin" | "signup";
 }
 const AuthForm: React.FC<AuthFormProps> = ({
