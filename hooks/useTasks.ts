@@ -112,12 +112,13 @@ export const useTasks = () => {
         .from("tasks")
         .update({ status, updated_at: new Date() })
         .eq("id", id)
-        .eq("user_id", id);
+        .eq("user_id", user?.id);
 
       if (error) {
         throw error;
       } else {
-        toast.success("Task status updated! 🩷");
+        if (status === "in_progress") status = "in progress";
+        toast.success("Task status updated to " + status + " 🩷");
       }
       fetchTasks();
     } catch (error) {
@@ -150,6 +151,46 @@ export const useTasks = () => {
     }
   };
 
+  const sortAndFilterTasks = ({
+    filter,
+    sort,
+  }: {
+    filter?: string;
+    sort?: string;
+  }) => {
+    // filters
+    if (filter === "today") {
+      const today = new Date().toISOString().split("T")[0];
+      setTasks(tasks.filter((task) => task.due_date === today));
+    } else if (filter === "incomplete") {
+      setTasks(tasks.filter((task) => task.status !== "completed"));
+    } else if (filter === "completed") {
+      setTasks(tasks.filter((task) => task.status === "completed"));
+    } else {
+      // do nothing
+    }
+
+    // sorting priority
+    const priorityMap: Record<"low" | "medium" | "high", number> = {
+      low: 1,
+      medium: 2,
+      high: 3,
+    };
+
+    // sort
+    if (sort === "priority_asc") {
+      setTasks(
+        tasks.sort((a, b) => priorityMap[a.priority] - priorityMap[b.priority]),
+      );
+    } else if (sort === "priority_desc") {
+      setTasks(
+        tasks.sort((a, b) => priorityMap[b.priority] - priorityMap[a.priority]),
+      );
+    } else {
+      // do nothing
+    }
+  };
+
   return {
     tasks,
     loading,
@@ -158,5 +199,6 @@ export const useTasks = () => {
     updateTask,
     updateTaskStatus,
     deleteTask,
+    sortAndFilterTasks,
   };
 };

@@ -11,7 +11,7 @@ export type Task = {
   id: string;
   user_id: string;
   task: string;
-  status: "pending" | "in-progress" | "completed";
+  status: "pending" | "in_progress" | "completed";
   priority: "low" | "medium" | "high";
   due_date: string;
   color: string;

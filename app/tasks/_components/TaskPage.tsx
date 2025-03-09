@@ -5,7 +5,8 @@ import { useFloaties } from "@/hooks/useFloaties";
 import FloatingStrwbry from "@/components/FloatingStrwbry";
 import TaskHeader from "@/app/tasks/_components/TaskHeader";
 import { motion } from "framer-motion";
-import { PlusIcon } from "lucide-react";
+import { Loader2, PlusIcon } from "lucide-react";
+import TaskList from "@/app/tasks/_components/TaskList";
 
 const TaskPage = () => {
   const {
@@ -16,11 +17,15 @@ const TaskPage = () => {
     updateTask,
     updateTaskStatus,
     deleteTask,
+    sortAndFilterTasks,
   } = useTasks();
 
   const { floaties } = useFloaties({ amount: 10 });
   const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
-  const [filter, setFilter] = useState<"all" | "today" | "completed">("all");
+  const [filter, setFilter] = useState<
+    "all" | "today" | "incomplete" | "completed"
+  >("all");
+  const [sort, setSort] = useState<"priority_asc" | "priority_desc" | "">("");
 
   const handleCancel = () => {
     setIsAddingTask(false);
@@ -64,6 +69,15 @@ const TaskPage = () => {
           />
         )}
       </motion.div>
+
+      {/* Task list */}
+      {fetchLoading ? (
+        <div>
+          <Loader2 className="w-8 h-8 animate-spin text-strawberry-400" />
+        </div>
+      ) : (
+        <TaskList tasks={tasks} updateStatus={updateTaskStatus} />
+      )}
     </div>
   );
 };
