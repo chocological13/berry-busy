@@ -30,7 +30,7 @@ const TaskHeader = ({ className }: { className?: string }) => {
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="mt-4 text-xl font-semibold text-strawberry-500 dark:text-strawberry-200 dark:drop-shadow-[0_0_15px_rgba(17,24,39,0.5)]"
+        className="mt-4 text-center text-xl font-semibold text-strawberry-500 dark:text-strawberry-200 dark:drop-shadow-[0_0_15px_rgba(17,24,39,0.5)]"
       >
         {randomQuote}
       </motion.p>

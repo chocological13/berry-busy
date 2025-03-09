@@ -143,6 +143,8 @@ export const useTasks = () => {
       } else {
         toast.success("Task successfully deleted! 🩷");
       }
+
+      fetchTasks();
     } catch (error) {
       console.error("Error deleting task: ", error);
       toast.error("Error deleting task 😔");

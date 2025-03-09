@@ -76,7 +76,11 @@ const TaskPage = () => {
           <Loader2 className="w-8 h-8 animate-spin text-strawberry-400" />
         </div>
       ) : (
-        <TaskList tasks={tasks} updateStatus={updateTaskStatus} />
+        <TaskList
+          tasks={tasks}
+          updateStatus={updateTaskStatus}
+          deleteTask={deleteTask}
+        />
       )}
     </div>
   );
