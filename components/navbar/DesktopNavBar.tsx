@@ -1,9 +1,6 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import StrwbryIcon from "@/components/StrwbryIcon";
 import { useAuthContext } from "@/context/auth-provider";

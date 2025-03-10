@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CreateTaskData, Task, UpdateTaskData } from "@/constants/types";
 import { useAuthContext } from "@/context/auth-provider";
 import { supabase } from "@/utils/supabase/client";
@@ -153,45 +153,46 @@ export const useTasks = () => {
     }
   };
 
-  const sortAndFilterTasks = ({
-    filter,
-    sort,
-  }: {
-    filter?: string;
-    sort?: string;
-  }) => {
-    // filters
-    if (filter === "today") {
-      const today = new Date().toISOString().split("T")[0];
-      setTasks(tasks.filter((task) => task.due_date === today));
-    } else if (filter === "incomplete") {
-      setTasks(tasks.filter((task) => task.status !== "completed"));
-    } else if (filter === "completed") {
-      setTasks(tasks.filter((task) => task.status === "completed"));
-    } else {
-      // do nothing
-    }
+  const sortAndFilterTasks = useCallback(
+    ({ filter, sort }: { filter?: string; sort?: string }) => {
+      let filteredTasks = [...tasks]; // Create a copy to avoid mutating original
 
-    // sorting priority
-    const priorityMap: Record<"low" | "medium" | "high", number> = {
-      low: 1,
-      medium: 2,
-      high: 3,
-    };
+      // filters
+      if (filter === "today") {
+        const today = new Date().toISOString().split("T")[0];
+        filteredTasks = filteredTasks.filter((task) => task.due_date === today);
+      } else if (filter === "incomplete") {
+        filteredTasks = filteredTasks.filter(
+          (task) => task.status !== "completed",
+        );
+      } else if (filter === "completed") {
+        filteredTasks = filteredTasks.filter(
+          (task) => task.status === "completed",
+        );
+      }
 
-    // sort
-    if (sort === "priority_asc") {
-      setTasks(
-        tasks.sort((a, b) => priorityMap[a.priority] - priorityMap[b.priority]),
-      );
-    } else if (sort === "priority_desc") {
-      setTasks(
-        tasks.sort((a, b) => priorityMap[b.priority] - priorityMap[a.priority]),
-      );
-    } else {
-      // do nothing
-    }
-  };
+      // sorting priority
+      const priorityMap: Record<"low" | "medium" | "high", number> = {
+        low: 1,
+        medium: 2,
+        high: 3,
+      };
+
+      // sort
+      if (sort === "priority_asc") {
+        filteredTasks.sort(
+          (a, b) => priorityMap[a.priority] - priorityMap[b.priority],
+        );
+      } else if (sort === "priority_desc") {
+        filteredTasks.sort(
+          (a, b) => priorityMap[b.priority] - priorityMap[a.priority],
+        );
+      }
+
+      return filteredTasks;
+    },
+    [tasks],
+  );
 
   return {
     tasks,

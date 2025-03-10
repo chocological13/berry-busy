@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { menuRoutes } from "@/constants/Routes";
-import { User } from "@supabase/auth-js";
 import LogOutButton from "@/components/navbar/LogOutButton";
 
 const MobileSideBar = ({ className }: { className?: string }) => {
@@ -28,8 +27,6 @@ const MobileSideBar = ({ className }: { className?: string }) => {
     },
     trackMouse: true,
   });
-
-  const [user, setUser] = useState<User | null>(null);
 
   return (
     <div className={`${className} md:hidden absolute overflow-hidden`}>

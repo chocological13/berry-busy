@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { supabase } from "@/utils/supabase/client";
 import { LogOutIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";

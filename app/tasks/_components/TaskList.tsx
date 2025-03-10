@@ -15,8 +15,8 @@ import { format } from "date-fns";
 
 interface TaskListProps {
   tasks: Task[];
-  updateStatus: ({ id, status }: { id: string; status: string }) => {};
-  deleteTask: (id: string) => {};
+  updateStatus: ({ id, status }: { id: string; status: string }) => void;
+  deleteTask: (id: string) => void;
 }
 const TaskList: React.FC<TaskListProps> = ({
   tasks,

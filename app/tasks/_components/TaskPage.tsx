@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import TaskForm from "@/app/tasks/_components/TaskForm";
 import { useTasks } from "@/hooks/useTasks";
 import { useFloaties } from "@/hooks/useFloaties";
 import FloatingStrwbry from "@/components/FloatingStrwbry";
 import TaskHeader from "@/app/tasks/_components/TaskHeader";
 import { motion } from "framer-motion";
-import { Loader2, PlusIcon } from "lucide-react";
+import {
+  Calendar1,
+  CircleX,
+  ListChecks,
+  Loader2,
+  PlusIcon,
+} from "lucide-react";
 import TaskList from "@/app/tasks/_components/TaskList";
+import { Button } from "@/components/ui/button";
+import { Task } from "@/constants/types";
 
 const TaskPage = () => {
   const {
@@ -14,7 +23,7 @@ const TaskPage = () => {
     loading,
     fetchLoading,
     createTask,
-    updateTask,
+    // updateTask,
     updateTaskStatus,
     deleteTask,
     sortAndFilterTasks,
@@ -22,14 +31,32 @@ const TaskPage = () => {
 
   const { floaties } = useFloaties({ amount: 10 });
   const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
-  const [filter, setFilter] = useState<
-    "all" | "today" | "incomplete" | "completed"
-  >("all");
-  const [sort, setSort] = useState<"priority_asc" | "priority_desc" | "">("");
+  const [filter, setFilter] = useState<string>("all");
+  // const [sort, setSort] = useState<"priority_asc" | "priority_desc" | "">("");
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    const filtered = sortAndFilterTasks({ filter, sort: "" });
+    setFilteredTasks(filtered);
+  }, [filter, tasks, sortAndFilterTasks]);
 
   const handleCancel = () => {
     setIsAddingTask(false);
   };
+
+  const getFilterButton = (filterOption: string) => {
+    switch (filterOption) {
+      case "today":
+        return <Calendar1 className="mr-1" />;
+      case "incomplete":
+        return <CircleX className="mr-1" />;
+      case "completed":
+        return <ListChecks className="mr-1" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-strawberry-50 to-cream-100 dark:bg-gradient-to-tr dark:from-strawberry-800 dark:to-strawberry-900 p-4 pb-20">
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -40,8 +67,6 @@ const TaskPage = () => {
 
       {/* Task Header */}
       <TaskHeader className="flex flex-col items-center mb-8 pt-10" />
-
-      {/* TODO: Add filter and sorting here */}
 
       {/* Add Task Area */}
       <motion.div
@@ -70,6 +95,35 @@ const TaskPage = () => {
         )}
       </motion.div>
 
+      {/* TODO: Add filter and sorting here */}
+      <motion.div
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="flex justify-center mb-6 overflow-x-auto gap-2"
+      >
+        {["all", "today", "incomplete", "completed"].map((filterOption, i) => (
+          <motion.div
+            key={i}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Button
+              variant="ghost"
+              onClick={() => setFilter(filterOption)}
+              className={`rounded-full px-4 whitespace-nowrap ${
+                filterOption === filter
+                  ? "bg-strawberry-200 dark:bg-mint-700 text-strawberry-700 dark:text-cream-50"
+                  : "text-strawberry-500 dark:text-strawberry-300 hover:bg-strawberry-100 dark:hover:bg-strawberry-800"
+              }`}
+            >
+              {getFilterButton(filterOption)}
+              {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
+            </Button>
+          </motion.div>
+        ))}
+      </motion.div>
+
       {/* Task list */}
       {fetchLoading ? (
         <div>
@@ -77,7 +131,7 @@ const TaskPage = () => {
         </div>
       ) : (
         <TaskList
-          tasks={tasks}
+          tasks={filteredTasks}
           updateStatus={updateTaskStatus}
           deleteTask={deleteTask}
         />
