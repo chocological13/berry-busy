@@ -6,16 +6,11 @@ import { useFloaties } from "@/hooks/useFloaties";
 import FloatingStrwbry from "@/components/FloatingStrwbry";
 import TaskHeader from "@/app/tasks/_components/TaskHeader";
 import { motion } from "framer-motion";
-import {
-  Calendar1,
-  CircleX,
-  ListChecks,
-  Loader2,
-  PlusIcon,
-} from "lucide-react";
+import { Calendar1, CircleX, ListChecks, PlusIcon } from "lucide-react";
 import TaskList from "@/app/tasks/_components/TaskList";
 import { Button } from "@/components/ui/button";
 import { Task } from "@/constants/types";
+import LoaderSpinner from "@/components/LoaderSpinner";
 
 const TaskPage = () => {
   const {
@@ -95,7 +90,8 @@ const TaskPage = () => {
         )}
       </motion.div>
 
-      {/* TODO: Add filter and sorting here */}
+      {/* TODO: Add sorting here */}
+      {/* Filter buttons */}
       <motion.div
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -126,12 +122,11 @@ const TaskPage = () => {
 
       {/* Task list */}
       {fetchLoading ? (
-        <div>
-          <Loader2 className="w-8 h-8 animate-spin text-strawberry-400" />
-        </div>
+        <LoaderSpinner />
       ) : (
         <TaskList
           tasks={filteredTasks}
+          loading={fetchLoading}
           updateStatus={updateTaskStatus}
           deleteTask={deleteTask}
         />

@@ -3,7 +3,7 @@ import { useAuthContext } from "@/context/auth-provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Auth from "@/app/auth/_components/Auth";
-import { Loader2 } from "lucide-react";
+import LoaderSpinner from "@/components/LoaderSpinner";
 
 export default function AuthPage() {
   const { user, loading } = useAuthContext();
@@ -23,11 +23,7 @@ export default function AuthPage() {
 
   if (loading) {
     console.log("Loading state active...");
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Loader2 className="w-10 h-10 animate-spin" />
-      </div>
-    );
+    return <LoaderSpinner />;
   } else if (authChecked) {
     return null;
   }

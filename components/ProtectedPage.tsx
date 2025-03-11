@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/context/auth-provider";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
+import LoaderSpinner from "@/components/LoaderSpinner";
 
 export default function ProtectedPage({
   children,
@@ -22,11 +22,7 @@ export default function ProtectedPage({
   }, [user, loading, router, redirectPath]);
 
   if (loading || !user) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Loader2 className="w-10 h-10 animate-spin" />
-      </div>
-    );
+    return <LoaderSpinner />;
   }
 
   return <>{children}</>;

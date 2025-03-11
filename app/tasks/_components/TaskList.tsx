@@ -12,14 +12,17 @@ import {
   Trash2,
 } from "lucide-react";
 import { format } from "date-fns";
+import LoaderSpinner from "@/components/LoaderSpinner";
 
 interface TaskListProps {
   tasks: Task[];
+  loading: boolean;
   updateStatus: ({ id, status }: { id: string; status: string }) => void;
   deleteTask: (id: string) => void;
 }
 const TaskList: React.FC<TaskListProps> = ({
   tasks,
+  loading,
   updateStatus,
   deleteTask,
 }) => {
@@ -90,7 +93,9 @@ const TaskList: React.FC<TaskListProps> = ({
 
   return (
     <AnimatePresence>
-      {tasks.length === 0 ? (
+      {loading && tasks.length === 0 ? (
+        <LoaderSpinner />
+      ) : tasks.length === 0 ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

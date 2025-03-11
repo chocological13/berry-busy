@@ -186,7 +186,9 @@ const TaskForm: React.FC<TaskFormProps> = ({
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={(date) => date < new Date()}
+                      disabled={(date) =>
+                        date < new Date(new Date().setHours(0, 0, 0, 0))
+                      }
                       initialFocus
                     />
                     <div className="flex justify-end pr-3 pb-3">
