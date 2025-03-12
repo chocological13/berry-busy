@@ -17,7 +17,7 @@ const DueToday: React.FC<DueTodayProps> = ({ metrics, tasks }) => {
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 0.5 }}
     >
-      <Card className="border-strawberry-300 dark:border-strawberry-700 rounded-xl bg-cream-100/50 dark:bg-strawberry-800/30">
+      <Card className="border-strawberry-300 dark:border-strawberry-700 rounded-xl bg-cream-50/50 dark:bg-strawberry-800/30 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="text-xl text-strawberry-600 dark:text-strawberry-300">
             Today&apos;s Focus

@@ -100,7 +100,7 @@ const TaskList: React.FC<TaskListProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="relative text-center py-10 bg-white/60 dark:bg-background/50 rounded-lg border-1 dark:border-strawberry-600 overflow-hidden space-y-2"
+          className="relative text-center py-10 bg-white/60 dark:bg-background/50 rounded-lg border-1 dark:border-strawberry-600 overflow-hidden space-y-2 backdrop-blur-sm transition-all"
         >
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-strawberry-300 dark:from-mint-700 via-pink-400 to-strawberry-300 dark:to-mint-700 animate-pulse"></div>
           <div className="text-strawberry-600 dark:text-strawberry-300 mb-2 text-5xl">
@@ -126,7 +126,7 @@ const TaskList: React.FC<TaskListProps> = ({
             >
               <motion.div
                 whileHover={{ y: -2 }}
-                className={`p-4 rounded-2xl bg-white/80 dark:bg-background/50 backdrop-blur-sm shadow-md border-2 ${getStatusBorderColor(
+                className={`p-4 rounded-2xl bg-white/80 dark:bg-background/50 backdrop-blur-lg dark:backdrop-blur-sm shadow-md border-2 ${getStatusBorderColor(
                   task.status,
                 )}`}
               >

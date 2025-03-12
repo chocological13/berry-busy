@@ -60,7 +60,7 @@ const TaskPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-strawberry-50 to-cream-100 dark:bg-gradient-to-tr dark:from-strawberry-800 dark:to-strawberry-900 p-4 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-strawberry-50 to-cream-100 dark:bg-gradient-to-tr dark:from-strawberry-800 dark:to-background p-4 pb-20">
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         {floaties.map((float) => (
           <FloatingStrwbry floaties={float} key={float.id} />

@@ -8,10 +8,13 @@ import { useMetrics } from "@/hooks/useMetrics";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import DueToday from "@/app/dashboard/_components/DueToday";
 import { ListTodo } from "lucide-react";
+import { useFloaties } from "@/hooks/useFloaties";
+import FloatingStrwbry from "@/components/FloatingStrwbry";
 
 const TaskDashboard = () => {
   const { fetchLoading, sortAndFilterTasks } = useTasks();
   const { metrics, level, levelMessage } = useMetrics();
+  const { floaties } = useFloaties({ amount: 10 });
 
   const dueToday = useMemo(
     () => sortAndFilterTasks({ filter: "today" }),
@@ -19,7 +22,12 @@ const TaskDashboard = () => {
   );
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-strawberry-50 to-white dark:bg-gradient-to-tr dark:from-background dark:via-background dark:to-strawberry-800 p-4 pb-20">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {floaties.map((float) => (
+          <FloatingStrwbry floaties={float} key={float.id} />
+        ))}
+      </div>
       {fetchLoading ? (
         <LoaderSpinner />
       ) : (
@@ -40,7 +48,7 @@ const TaskDashboard = () => {
           <DueToday metrics={metrics} tasks={dueToday} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

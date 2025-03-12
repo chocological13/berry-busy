@@ -33,7 +33,7 @@ const DashboardMetricsCard: React.FC<DashboardMetricsCardProps> = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <CardMotion delay={0.3}>
-        <Card className="bg-cream-50/80 dark:bg-strawberry-800/30 backdrop-blur-sm border-mint-300 dark:border-mint-800">
+        <Card className="bg-cream-50/30 dark:bg-strawberry-800/30 backdrop-blur-sm border-mint-300 dark:border-mint-800">
           <CardHeader>
             <CardTitle className="flex flex-row text-sm font-medium items-center text-mint-700 dark:text-mint-400">
               <CheckCircle className="w-4 h-4 mr-2" />

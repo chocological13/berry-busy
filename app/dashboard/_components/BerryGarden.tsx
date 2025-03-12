@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { TaskMetrics } from "@/constants/types";
+import { Progress } from "@/components/ui/progress";
 
 interface BerryGardenProps {
   metrics: TaskMetrics;
@@ -51,7 +52,7 @@ const BerryGarden: React.FC<BerryGardenProps> = ({
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 0.3 }}
-      className="relative p-6 bg-cream-50/80 dark:bg-strawberry-800/30 backdrop-blur-sm rounded-xl border-2 border-strawberry-200 dark:border-strawberry-700 overflow-hidden"
+      className="relative p-6 bg-cream-50/50 dark:bg-strawberry-800/30 backdrop-blur-sm rounded-xl border-2 border-strawberry-200 dark:border-strawberry-700 overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-strawberry-300 dark:from-mint-700 via-pink-400 to-strawberry-300 dark:to-mint-700 animate-pulse"></div>
       <div className="absolute inset-0 opacity-40">
@@ -91,6 +92,18 @@ const BerryGarden: React.FC<BerryGardenProps> = ({
             </motion.div>
           </>
         )}
+      </div>
+
+      <div className="relative mt-4">
+        <div className="mb-1 flex justify-between text-xs text-strawberry-500 dark:text-strawberry-400">
+          <span>0%</span>
+          <span>Task Completion</span>
+          <span>100%</span>
+        </div>
+        <Progress
+          value={metrics.completionRate}
+          className="h-3 bg-cream-200 dark:bg-strawberry-900 [&>div]:bg-strawberry-500 dark:[&>div]:bg-mint-300"
+        />
       </div>
     </motion.div>
   );
