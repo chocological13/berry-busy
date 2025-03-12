@@ -41,3 +41,12 @@ export type Category = {
   created_at: string;
   updated_at: string;
 };
+
+export type TaskMetrics = {
+  completed: number;
+  inProgress: number;
+  pending: number;
+  total: number;
+  completionRate: number;
+  dueToday: number;
+};
