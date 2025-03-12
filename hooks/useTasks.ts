@@ -7,7 +7,7 @@ import { toast } from "sonner";
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [fetchLoading, setFetchLoading] = useState<boolean>(false);
+  const [fetchLoading, setFetchLoading] = useState<boolean>(true);
   const { user } = useAuthContext();
 
   // initial fetch
@@ -159,8 +159,16 @@ export const useTasks = () => {
 
       // filters
       if (filter === "today") {
-        const today = new Date().toISOString().split("T")[0];
-        filteredTasks = filteredTasks.filter((task) => task.due_date === today);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        filteredTasks = filteredTasks.filter((task) => {
+          if (!task.due_date) return false;
+          const dueDate = new Date(task.due_date);
+          dueDate.setHours(0, 0, 0, 0);
+          return (
+            dueDate.getTime() === today.getTime() && task.status !== "completed"
+          );
+        });
       } else if (filter === "incomplete") {
         filteredTasks = filteredTasks.filter(
           (task) => task.status !== "completed",

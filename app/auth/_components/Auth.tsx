@@ -18,6 +18,7 @@ import { motion } from "framer-motion";
 import BeegStrwbry from "@/components/BeegStrwbry";
 import { useFloaties } from "@/hooks/useFloaties";
 import FloatingStrwbry from "@/components/FloatingStrwbry";
+import Footer from "@/components/Footer";
 
 const Auth = () => {
   const { loading, handleAuth } = useAuth();
@@ -110,9 +111,7 @@ const Auth = () => {
             </Tabs>
 
             <div className="mt-6 text-center">
-              <p className="text-xs text-strawberry-400 dark:text-strawberry-500">
-                Made with ❤️ for berry busy people
-              </p>
+              <Footer className="text-xs flex flex-row flex-wrap justify-center gap-1 text-strawberry-400 dark:text-strawberry-500" />
             </div>
           </CardContent>
         </Card>

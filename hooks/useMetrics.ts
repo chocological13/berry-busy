@@ -1,9 +1,9 @@
 import { useTasks } from "@/hooks/useTasks";
 import { TaskMetrics } from "@/constants/types";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export const useMetrics = () => {
-  const { tasks, sortAndFilterTasks } = useTasks();
+  const { tasks, sortAndFilterTasks, fetchLoading } = useTasks();
   const [metrics, setMetrics] = useState<TaskMetrics>({
     completed: 0,
     inProgress: 0,
@@ -14,16 +14,23 @@ export const useMetrics = () => {
   });
   const [level, setLevel] = useState<number>(0);
   const [levelMessage, setLevelMessage] = useState<string>("");
+  const hasCalculated = useRef<boolean>(false);
 
-  const levelMessages = [
-    "Plant the seeds of productivity today!",
-    "You're making progress! Keep growing!",
-    "Your berry garden is blooming!",
-    "Wow! Your productivity is berry impressive!",
-    "Amazing job! Your garden is thriving!",
-  ];
+  const levelMessages = useMemo(
+    () => [
+      "Plant the seeds of productivity today!",
+      "You're making progress! Keep growing!",
+      "Your berry garden is blooming!",
+      "Wow! Your productivity is berry impressive!",
+      "Amazing job! Your garden is thriving!",
+    ],
+    [],
+  );
+
+  // Only calculate metrics once after tasks are loaded
   useEffect(() => {
-    if (tasks.length > 0) {
+    // Only calculate if we haven't already and tasks are loaded
+    if (!hasCalculated.current && !fetchLoading && tasks.length > 0) {
       const completed = tasks.filter(
         (task) => task.status === "completed",
       ).length;
@@ -33,18 +40,14 @@ export const useMetrics = () => {
       const pending = tasks.filter((task) => task.status === "pending").length;
       const total = tasks.length;
 
-      // completion rate
       const completionRate =
         total > 0 ? Math.round((completed / total) * 100) : 0;
+      const userLevel = Math.min(Math.floor(completionRate / 20), 4);
 
-      // due today
       const dueToday = sortAndFilterTasks({
         filter: "today",
         sort: "",
       }).length;
-
-      // set level
-      const userLevel = Math.min(Math.floor(completionRate / 20), 4); // level 0 - 4
 
       setMetrics({
         completed,
@@ -56,14 +59,22 @@ export const useMetrics = () => {
       });
 
       setLevel(userLevel);
+      setLevelMessage(levelMessages[userLevel]);
 
-      setLevelMessage(levelMessages[level]);
+      // Mark that we've calculated metrics
+      hasCalculated.current = true;
     }
-  }, [tasks]);
+  }, [tasks, fetchLoading, sortAndFilterTasks, levelMessages]);
+
+  // Recalculate only when explicitly asked to
+  const recalculateMetrics = () => {
+    hasCalculated.current = false;
+  };
 
   return {
     metrics,
     level,
     levelMessage,
+    recalculateMetrics,
   };
 };

@@ -1,10 +1,18 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useMetrics } from "@/hooks/useMetrics";
+import { TaskMetrics } from "@/constants/types";
 
-const BerryGarden = () => {
-  const { metrics, level, levelMessage } = useMetrics();
+interface BerryGardenProps {
+  metrics: TaskMetrics;
+  level: number;
+  levelMessage: string;
+}
 
+const BerryGarden: React.FC<BerryGardenProps> = ({
+  metrics,
+  level,
+  levelMessage,
+}) => {
   const RotateSpan = ({ children }: { children: React.ReactNode }) => {
     return (
       <motion.span
@@ -18,14 +26,14 @@ const BerryGarden = () => {
   const getGarden = (level: number) => {
     switch (level) {
       case 1:
-        return <div className="text-4xl">🍓</div>;
+        return <div className="text-3xl md:text-4xl">🍓</div>;
       case 2:
-        return <div className="text-5xl">🍓</div>;
+        return <div className="text-4xl md:text-5xl">🍓</div>;
       case 3:
-        return <div className="text-5xl flex">🍓🍓</div>;
+        return <div className="text-4xl md:text-5xl flex">🍓🍓</div>;
       case 4:
         return (
-          <div className="text-6xl flex">
+          <div className="text-5xl md:text-6xl flex">
             <RotateSpan>🙌🏻</RotateSpan>
             <span>🍓</span>
             <RotateSpan>✨</RotateSpan>
@@ -43,17 +51,21 @@ const BerryGarden = () => {
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 0.3 }}
-      className="relative mt-4 p-6 bg-cream-50/80 dark:bg-strawberry-800/30 backdrop-blur-sm rounded-xl border-2 border-strawberry-200 dark:border-strawberry-700 overflow-hidden"
+      className="relative p-6 bg-cream-50/80 dark:bg-strawberry-800/30 backdrop-blur-sm rounded-xl border-2 border-strawberry-200 dark:border-strawberry-700 overflow-hidden"
     >
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-strawberry-300 dark:from-mint-700 via-pink-400 to-strawberry-300 dark:to-mint-700 animate-pulse"></div>
       <div className="absolute inset-0 opacity-40">
         <div className="absolute top-20 left-0 w-full h-full bg-contain bg-no-repeat bg-center bg-blend-normal bg-[url('/grass.svg')]"></div>
       </div>
 
-      <div className="relative text-center mb-6">
-        <h3 className="text-xl font-bold text-strawberry-600 dark:text-strawberry-300">
-          Your Berry Garden
+      <div className="relative text-center md:mb-10 mb-3">
+        <h3 className="text-xl font-bold font-display text-strawberry-600 dark:text-strawberry-300 mb-1">
+          Your Strawberries Garden~
         </h3>
-        <p className="text-strawberry-500 dark:text-strawberry-400">
+        <p className="text-strawberry-500 dark:text-strawberry-400 text-xs mb-5">
+          Complete your tasks to tend to your garden 💦
+        </p>
+        <p className="text-strawberry-500 dark:text-strawberry-400 md:mb-3 font-bold">
           {levelMessage}
         </p>
       </div>

@@ -3,6 +3,7 @@ import DesktopNavBar from "@/components/navbar/DesktopNavBar";
 import MobileSideBar from "@/components/navbar/MobileSideBar";
 import { useAuthContext } from "@/context/auth-provider";
 import React from "react";
+import Footer from "@/components/Footer";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const { user } = useAuthContext();
@@ -18,7 +19,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           <MobileSideBar />
           {children}
         </main>
-        <footer>footer</footer>
+        <Footer className="flex flex-row justify-center flex-wrap text-xs md:text-sm gap-1.5 p-5" />
       </div>
     );
   } else {

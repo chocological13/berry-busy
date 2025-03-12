@@ -6,11 +6,18 @@ import { useFloaties } from "@/hooks/useFloaties";
 import FloatingStrwbry from "@/components/FloatingStrwbry";
 import TaskHeader from "@/app/tasks/_components/TaskHeader";
 import { motion } from "framer-motion";
-import { Calendar1, CircleX, ListChecks, PlusIcon } from "lucide-react";
+import {
+  Calendar1,
+  CircleX,
+  HomeIcon,
+  ListChecks,
+  PlusIcon,
+} from "lucide-react";
 import TaskList from "@/app/tasks/_components/TaskList";
 import { Button } from "@/components/ui/button";
 import { Task } from "@/constants/types";
 import LoaderSpinner from "@/components/LoaderSpinner";
+import GoToButton from "@/components/GoToButton";
 
 const TaskPage = () => {
   const {
@@ -62,6 +69,13 @@ const TaskPage = () => {
 
       {/* Task Header */}
       <TaskHeader className="flex flex-col items-center mb-8 pt-10" />
+
+      <GoToButton
+        className="flex justify-end mb-4"
+        icon={HomeIcon}
+        buttonName="Back To Home"
+        href="/dashboard"
+      />
 
       {/* Add Task Area */}
       <motion.div

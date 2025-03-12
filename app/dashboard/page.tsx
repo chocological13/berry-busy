@@ -1,19 +1,11 @@
 "use client";
-import { useAuthContext } from "@/context/auth-provider";
 import ProtectedPage from "@/components/ProtectedPage";
-import BerryGarden from "@/app/dashboard/_components/BerryGarden";
-import DashboardHeader from "@/app/dashboard/_components/DashboardHeader";
+import TaskDashboard from "@/app/dashboard/_components/TaskDashboard";
 
 export default function Dashboard() {
-  const { user } = useAuthContext();
-
   return (
     <ProtectedPage>
-      <div>Hello, {user?.email}!</div>
-      <DashboardHeader />
-      <div>
-        <BerryGarden />
-      </div>
+      <TaskDashboard />
     </ProtectedPage>
   );
 }
