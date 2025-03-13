@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import DashboardHeader from "@/app/dashboard/_components/DashboardHeader";
 import GoToButton from "@/components/GoToButton";
-import DashboardMetricsCard from "@/app/dashboard/_components/DashboardMetricsCard";
+import DashboardMetricsCards from "@/app/dashboard/_components/DashboardMetricsCards";
 import BerryGarden from "@/app/dashboard/_components/BerryGarden";
 import { useTasks } from "@/hooks/useTasks";
 import { useMetrics } from "@/hooks/useMetrics";
@@ -11,7 +11,7 @@ import { ListTodo } from "lucide-react";
 import { useFloaties } from "@/hooks/useFloaties";
 import FloatingStrwbry from "@/components/FloatingStrwbry";
 
-const TaskDashboard = () => {
+const TaskDashboard: React.FC = React.memo(() => {
   const { fetchLoading, sortAndFilterTasks } = useTasks();
   const { metrics, level, levelMessage } = useMetrics();
   const { floaties } = useFloaties({ amount: 10 });
@@ -39,7 +39,7 @@ const TaskDashboard = () => {
             buttonName="Go To Task"
             href="/tasks"
           />
-          <DashboardMetricsCard metrics={metrics} />
+          <DashboardMetricsCards metrics={metrics} />
           <BerryGarden
             metrics={metrics}
             level={level}
@@ -50,6 +50,8 @@ const TaskDashboard = () => {
       )}
     </div>
   );
-};
+});
+
+TaskDashboard.displayName = "TaskDashboard";
 
 export default TaskDashboard;

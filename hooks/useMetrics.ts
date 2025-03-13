@@ -4,17 +4,28 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export const useMetrics = () => {
   const { tasks, sortAndFilterTasks, fetchLoading } = useTasks();
-  const [metrics, setMetrics] = useState<TaskMetrics>({
-    completed: 0,
-    inProgress: 0,
-    pending: 0,
-    total: 0,
-    completionRate: 0,
-    dueToday: 0,
+
+  const [metricsData, setMetricsData] = useState<{
+    metrics: TaskMetrics;
+    level: number;
+    levelMessage: string;
+    isCalculated: boolean;
+  }>({
+    metrics: {
+      completed: 0,
+      inProgress: 0,
+      pending: 0,
+      total: 0,
+      completionRate: 0,
+      dueToday: 0,
+    },
+    level: 0,
+    levelMessage: "Plant the seeds of productivity today!",
+    isCalculated: false,
   });
-  const [level, setLevel] = useState<number>(0);
-  const [levelMessage, setLevelMessage] = useState<string>("");
-  const hasCalculated = useRef<boolean>(false);
+
+  // Prevent unnecessary recalculations
+  const calculatedRef = useRef(false);
 
   const levelMessages = useMemo(
     () => [
@@ -27,10 +38,9 @@ export const useMetrics = () => {
     [],
   );
 
-  // Only calculate metrics once after tasks are loaded
+  // Calculate metrics only when tasks are loaded
   useEffect(() => {
-    // Only calculate if we haven't already and tasks are loaded
-    if (!hasCalculated.current && !fetchLoading && tasks.length > 0) {
+    if (!fetchLoading && tasks.length > 0 && !calculatedRef.current) {
       const completed = tasks.filter(
         (task) => task.status === "completed",
       ).length;
@@ -49,32 +59,70 @@ export const useMetrics = () => {
         sort: "",
       }).length;
 
-      setMetrics({
-        completed,
-        inProgress,
-        pending,
-        total,
-        completionRate,
-        dueToday,
+      setMetricsData({
+        metrics: {
+          completed,
+          inProgress,
+          pending,
+          total,
+          completionRate,
+          dueToday,
+        },
+        level: userLevel,
+        levelMessage: levelMessages[userLevel],
+        isCalculated: true,
       });
 
-      setLevel(userLevel);
-      setLevelMessage(levelMessages[userLevel]);
-
-      // Mark that we've calculated metrics
-      hasCalculated.current = true;
+      calculatedRef.current = true;
     }
   }, [tasks, fetchLoading, sortAndFilterTasks, levelMessages]);
 
-  // Recalculate only when explicitly asked to
-  const recalculateMetrics = () => {
-    hasCalculated.current = false;
-  };
+  // Manual recalculation function
+  const recalculateMetrics = useCallback(() => {
+    calculatedRef.current = false;
+
+    if (tasks.length > 0) {
+      const completed = tasks.filter(
+        (task) => task.status === "completed",
+      ).length;
+      const inProgress = tasks.filter(
+        (task) => task.status === "in_progress",
+      ).length;
+      const pending = tasks.filter((task) => task.status === "pending").length;
+      const total = tasks.length;
+
+      const completionRate =
+        total > 0 ? Math.round((completed / total) * 100) : 0;
+      const userLevel = Math.min(Math.floor(completionRate / 20), 4);
+
+      const dueToday = sortAndFilterTasks({
+        filter: "today",
+        sort: "",
+      }).length;
+
+      setMetricsData({
+        metrics: {
+          completed,
+          inProgress,
+          pending,
+          total,
+          completionRate,
+          dueToday,
+        },
+        level: userLevel,
+        levelMessage: levelMessages[userLevel],
+        isCalculated: true,
+      });
+
+      calculatedRef.current = true;
+    }
+  }, [tasks, sortAndFilterTasks, levelMessages]);
 
   return {
-    metrics,
-    level,
-    levelMessage,
+    metrics: metricsData.metrics,
+    level: metricsData.level,
+    levelMessage: metricsData.levelMessage,
+    isCalculated: metricsData.isCalculated,
     recalculateMetrics,
   };
 };

@@ -10,7 +10,29 @@ interface DueTodayProps {
   tasks: Task[];
 }
 
-const DueToday: React.FC<DueTodayProps> = ({ metrics, tasks }) => {
+const TaskItem = React.memo(
+  ({ task, index }: { task: Task; index: number }) => {
+    return (
+      <motion.div
+        key={task.id}
+        className="relative"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -20, opacity: 0 }}
+        transition={{ delay: index * 0.05 }}
+      >
+        <div className="flex flex-row gap-1 items-center">
+          <ArrowRight className="w-5 h-5 font-bold" />
+          {task.task}
+        </div>
+      </motion.div>
+    );
+  },
+);
+
+TaskItem.displayName = "TaskItem";
+
+const DueToday: React.FC<DueTodayProps> = React.memo(({ metrics, tasks }) => {
   return (
     <motion.div
       initial={{ scale: 0, opacity: 0 }}
@@ -43,19 +65,7 @@ const DueToday: React.FC<DueTodayProps> = ({ metrics, tasks }) => {
                   Overview:
                 </h3>
                 {tasks.map((task, i) => (
-                  <motion.div
-                    key={i}
-                    className="relative"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -20, opacity: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                  >
-                    <div className="flex flex-row gap-1 items-center">
-                      <ArrowRight className="w-5 h-5 font-bold" />
-                      {task.task}
-                    </div>
-                  </motion.div>
+                  <TaskItem key={task.id || i} task={task} index={i} />
                 ))}
               </div>
               <GoToButton
@@ -78,6 +88,8 @@ const DueToday: React.FC<DueTodayProps> = ({ metrics, tasks }) => {
       </Card>
     </motion.div>
   );
-};
+});
+
+DueToday.displayName = "DueToday";
 
 export default DueToday;
