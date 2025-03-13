@@ -110,7 +110,7 @@ const TaskPage = () => {
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="flex justify-center mb-6 overflow-x-auto gap-2"
+        className="flex justify-center mb-6 overflow-x-auto gap-1 md:gap-2"
       >
         {["all", "today", "incomplete", "completed"].map((filterOption, i) => (
           <motion.div

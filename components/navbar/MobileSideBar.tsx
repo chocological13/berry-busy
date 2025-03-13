@@ -37,21 +37,7 @@ const MobileSideBar = ({ className }: { className?: string }) => {
             {!open && (
               <div
                 {...swipeHandlers}
-                style={{
-                  position: "fixed",
-                  top: "50%",
-                  right: 0,
-                  transform: "translateY(-50%)",
-                  width: "10px",
-                  height: "100px",
-                  borderTopLeftRadius: 7,
-                  borderBottomLeftRadius: 7,
-                  backgroundColor: "rgba(200, 200, 200, 0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  zIndex: 1000,
-                }}
+                className="fixed top-1/2 right-0 -translate-y-1/2 w-[12px] h-[100px] rounded-l-lg bg-gray-700/20 dark:bg-gray-700/50 flex items-center justify-center z-[1000]"
               >
                 <ChevronLeft className="text-pink-600 font-bold" />
               </div>

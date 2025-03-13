@@ -75,11 +75,11 @@ const DueToday: React.FC<DueTodayProps> = React.memo(({ metrics, tasks }) => {
               />
             </motion.div>
           ) : (
-            <div>
+            <div className="flex flex-col gap-3">
               <p>No tasks due for today! Rest time? 😴</p>
               <GoToButton
                 icon={CirclePlus}
-                buttonName="Have something to do?"
+                buttonName="Have something to do? Add task!"
                 href="/tasks"
               />
             </div>
